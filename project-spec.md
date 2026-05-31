@@ -185,3 +185,5 @@ Indices 0–24, row-major. Bingo = any fully-completed line:
 - [ ] Deployed to a public Vercel URL
 
 Keep it simple. Make it beautiful. Make the link → tap-a-square → find-people moment unforgettable.
+
+db password: jzDaSCbrEMK6HA6d

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, Lock } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const next = searchParams.get("next") ?? "/create";
+
   const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading]   = useState(false);
@@ -28,7 +31,7 @@ export function LoginForm() {
       return;
     }
 
-    router.push("/");
+    router.push(next);
     router.refresh();
   }
 
@@ -60,21 +63,16 @@ export function LoginForm() {
         </p>
       )}
 
-      <Button
-        type="submit"
-        size="lg"
-        disabled={loading}
-        className="mt-1 w-full"
-      >
+      <Button type="submit" size="lg" disabled={loading} className="mt-1 w-full">
         {loading ? "Signing in…" : "Sign in"}
       </Button>
 
       <div className="flex items-center justify-between text-sm">
-        <p className="text-[var(--color-ink)] opacity-60">
+        <p className="text-muted-foreground">
           No account?{" "}
           <Link
-            href="/auth/register"
-            className="font-medium text-[var(--color-coral)] hover:underline"
+            href={`/auth/register?next=${encodeURIComponent(next)}`}
+            className="font-medium text-primary hover:underline"
           >
             Register
           </Link>

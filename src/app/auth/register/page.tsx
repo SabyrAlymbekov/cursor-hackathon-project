@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { RegisterForm } from "@/components/auth/register-form";
 import { AuthLayout } from "@/components/auth/auth-layout";
 
@@ -11,7 +12,9 @@ export default function RegisterPage() {
       title="Join the game"
       subtitle="Create your account and start playing."
     >
-      <RegisterForm />
+      <Suspense>
+        <RegisterForm />
+      </Suspense>
     </AuthLayout>
   );
 }

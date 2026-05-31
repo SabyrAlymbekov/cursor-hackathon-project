@@ -83,7 +83,7 @@ export function HeroSection() {
           {/* CTAs */}
           <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
             <Button size="lg" asChild>
-              <Link href="/create">
+              <Link href="/auth/register">
                 Start a bingo <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

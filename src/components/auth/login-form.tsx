@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Mail, Lock } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Input } from "@/components/ui/input";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { Button } from "@/components/ui/button";
 
 export function LoginForm() {
   const router = useRouter();
@@ -60,13 +60,14 @@ export function LoginForm() {
         </p>
       )}
 
-      <ShimmerButton
+      <Button
         type="submit"
+        size="lg"
         disabled={loading}
         className="mt-1 w-full"
       >
-        {loading ? "Signing in…" : "Sign in ☀️"}
-      </ShimmerButton>
+        {loading ? "Signing in…" : "Sign in"}
+      </Button>
 
       <div className="flex items-center justify-between text-sm">
         <p className="text-[var(--color-ink)] opacity-60">

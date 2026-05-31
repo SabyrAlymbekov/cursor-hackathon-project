@@ -4,82 +4,100 @@ import { motion } from "framer-motion";
 
 const steps = [
   {
+    num: "01",
     emoji: "🔗",
     title: "Get the link",
     desc: "A friend drops a bingo link in the group chat. Tap it — no app download needed.",
   },
   {
+    num: "02",
     emoji: "✍️",
-    title: "Register in 2 seconds",
-    desc: "Enter your name and pick an emoji avatar. That's it. You're in.",
+    title: "Register in 2 s",
+    desc: "Enter your name, pick an emoji, done. You're on the board.",
   },
   {
+    num: "03",
     emoji: "🎯",
     title: "Tap a square",
-    desc: "See what others are doing for that challenge. Find people. Make plans. Go do it.",
+    desc: "See who else is doing that challenge. Find people. Make plans. Go.",
   },
   {
+    num: "04",
     emoji: "🎉",
-    title: "Hit a line → BINGO!",
-    desc: "Complete a row, column, or diagonal. Confetti fires. Share to your Instagram story.",
+    title: "Hit BINGO!",
+    desc: "Complete a row, column, or diagonal. Confetti fires. Share your win.",
   },
 ];
 
 export function HowItWorksSection() {
   return (
-    <section className="relative bg-[var(--color-ink)] py-24 px-4">
-      {/* Decorative top wave */}
-      <div className="absolute -top-1 left-0 w-full overflow-hidden leading-none">
-        <svg viewBox="0 0 1440 60" className="w-full fill-[var(--color-cream)]">
-          <path d="M0,40 C360,80 1080,0 1440,40 L1440,0 L0,0 Z" />
+    <section className="relative bg-foreground px-6 py-24">
+      {/* Wave from hero */}
+      <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
+        <svg viewBox="0 0 1440 48" className="w-full" style={{ fill: "hsl(var(--background))" }}>
+          <path d="M0,32 C480,56 960,8 1440,32 L1440,0 L0,0 Z" />
         </svg>
       </div>
 
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-5xl pt-8">
         <motion.div
-          className="mb-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="mb-14 text-center"
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           <h2
-            className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-white"
+            className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-primary-foreground"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            How it works
+            Four steps.
+            <br />
+            <span style={{ color: "hsl(var(--secondary))" }}>Best summer yet.</span>
           </h2>
-          <p className="mt-3 text-white/50">Four steps to your best summer yet.</p>
         </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-px sm:grid-cols-2 lg:grid-cols-4 rounded-2xl overflow-hidden border-2 border-border/20">
           {steps.map((step, i) => (
             <motion.div
               key={i}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-[var(--color-coral)]/50 hover:bg-white/10"
-              initial={{ opacity: 0, y: 30 }}
+              className="flex flex-col gap-4 bg-card/5 p-7 transition-colors hover:bg-card/10"
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
+              transition={{ delay: i * 0.08 }}
             >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-coral)]/20 text-2xl">
-                {step.emoji}
+              {/* Number stamp */}
+              <div className="flex items-center gap-3">
+                <span
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-primary text-sm font-bold text-primary-foreground"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {step.num}
+                </span>
+                <span className="text-2xl">{step.emoji}</span>
               </div>
-              <p className="mb-0.5 text-xs font-semibold uppercase tracking-widest text-[var(--color-amber)]">
-                Step {i + 1}
-              </p>
-              <h3
-                className="mb-2 text-lg font-bold text-white"
-                style={{ fontFamily: "var(--font-display)" }}
-              >
-                {step.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-white/60">{step.desc}</p>
 
-              {/* Hover accent line */}
-              <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-amber)] transition-all duration-300 group-hover:w-full" />
+              <div>
+                <h3
+                  className="mb-1.5 text-lg font-bold text-card"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed" style={{ color: "hsl(var(--muted-foreground) / 0.8)" }}>
+                  {step.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* Bottom wave into templates */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+        <svg viewBox="0 0 1440 48" className="w-full" style={{ fill: "hsl(var(--background))" }}>
+          <path d="M0,16 C480,-8 960,40 1440,16 L1440,48 L0,48 Z" />
+        </svg>
       </div>
     </section>
   );

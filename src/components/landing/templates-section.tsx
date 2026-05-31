@@ -7,101 +7,103 @@ import { TEMPLATES } from "@/lib/templates";
 
 export function TemplatesSection() {
   return (
-    <section className="py-24 px-4 bg-[var(--color-cream)]">
+    <section className="border-t border-border bg-background px-6 py-24">
       <div className="mx-auto max-w-5xl">
-        <motion.div
-          className="mb-14 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2
-            className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-[var(--color-ink)]"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Pick a template,
-            <br />
-            <span className="text-gradient-coral">start in one tap.</span>
-          </h2>
-          <p className="mt-3 text-[var(--color-ink)] opacity-60">
-            Every cell is editable. Make it yours.
-          </p>
-        </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-3">
+        {/* Section header */}
+        <div className="mb-12 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="mb-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+              Templates
+            </p>
+            <h2
+              className="text-[clamp(1.8rem,4vw,3rem)] font-bold leading-tight text-foreground"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Pick a template.
+              <br />
+              Start in one tap.
+            </h2>
+          </div>
+          <Link
+            href="/create"
+            className="mt-4 hidden text-sm font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline sm:block"
+          >
+            Build from scratch →
+          </Link>
+        </div>
+
+        {/* Template rows */}
+        <div className="flex flex-col divide-y divide-border">
           {TEMPLATES.map((t, i) => (
             <motion.div
               key={t.id}
-              className="group relative overflow-hidden rounded-2xl border-2 border-[var(--color-border)] bg-white transition-all hover:border-[var(--color-coral)] hover:shadow-[var(--shadow-warm-md)]"
-              initial={{ opacity: 0, y: 24 }}
+              className="group flex flex-col gap-4 py-7 sm:flex-row sm:items-start sm:gap-8"
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              whileHover={{ y: -4 }}
+              transition={{ delay: i * 0.06, duration: 0.35 }}
             >
-              {/* Colored header band */}
-              <div
-                className="flex items-center gap-3 px-6 py-4"
-                style={{ background: t.color + "22", borderBottom: `2px solid ${t.color}33` }}
+              {/* Index number */}
+              <span
+                className="shrink-0 text-[2.5rem] font-bold leading-none text-border sm:w-12 sm:text-right"
+                style={{ fontFamily: "var(--font-display)" }}
               >
-                <span className="text-3xl">{t.emoji}</span>
-                <div>
+                0{i + 1}
+              </span>
+
+              {/* Content */}
+              <div className="flex flex-1 flex-col gap-3">
+                <div className="flex items-center gap-3">
                   <h3
-                    className="font-bold text-[var(--color-ink)]"
+                    className="text-xl font-bold text-foreground"
                     style={{ fontFamily: "var(--font-display)" }}
                   >
                     {t.name}
                   </h3>
-                  <p className="text-xs text-[var(--color-ink)] opacity-50">{t.description}</p>
+                  <span className="text-lg">{t.emoji}</span>
                 </div>
-              </div>
+                <p className="text-sm text-muted-foreground">{t.description}</p>
 
-              {/* Mini challenge preview */}
-              <div className="px-6 py-4">
+                {/* Challenge chips — monochrome */}
                 <div className="flex flex-wrap gap-1.5">
                   {t.challenges.slice(0, 6).map((c, j) => (
                     <span
                       key={j}
-                      className="rounded-lg bg-[var(--color-muted)] px-2 py-1 text-[10px] font-medium text-[var(--color-ink)]"
+                      className="rounded border border-border bg-muted px-2.5 py-1 text-[11px] font-medium text-foreground"
                     >
                       {c}
                     </span>
                   ))}
-                  <span className="rounded-lg bg-[var(--color-muted)] px-2 py-1 text-[10px] text-[var(--color-ink)] opacity-50">
+                  <span className="rounded border border-border bg-muted px-2.5 py-1 text-[11px] text-muted-foreground">
                     +18 more
                   </span>
                 </div>
               </div>
 
               {/* CTA */}
-              <div className="px-6 pb-5">
+              <div className="shrink-0 sm:pt-1">
                 <Link
                   href={`/create?template=${t.id}`}
-                  className="group/btn inline-flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold text-white transition-all"
-                  style={{ background: t.color }}
+                  className="inline-flex items-center gap-2 rounded-lg border-2 border-foreground bg-transparent px-5 py-2.5 text-sm font-semibold text-foreground transition-all hover:bg-foreground hover:text-background"
                 >
-                  Use this template
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
+                  Use template
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Or write your own */}
-        <motion.div
-          className="mt-10 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
+        {/* Mobile "from scratch" link */}
+        <div className="mt-8 sm:hidden">
           <Link
             href="/create"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-ink)] underline-offset-4 hover:underline opacity-60 hover:opacity-100 transition-opacity"
+            className="text-sm font-medium text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
           >
-            Or write your own 24 challenges from scratch →
+            Or build from scratch →
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -6,31 +6,35 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.97] cursor-pointer",
   {
     variants: {
       variant: {
-        primary:
-          "bg-[var(--color-coral)] text-white shadow-[var(--shadow-warm-sm)] hover:brightness-110 hover:shadow-[var(--shadow-warm-md)] focus-visible:ring-[var(--color-coral)]",
+        default:
+          "bg-primary text-primary-foreground border-2 border-primary shadow-sm hover:brightness-110 hover:shadow-md",
         secondary:
-          "bg-[var(--color-ink)] text-white hover:bg-[var(--color-ink-light)] focus-visible:ring-[var(--color-ink)]",
+          "bg-secondary text-secondary-foreground border-2 border-secondary hover:brightness-105",
+        accent:
+          "bg-accent text-accent-foreground border-2 border-accent hover:brightness-110",
         outline:
-          "border-2 border-[var(--color-coral)] text-[var(--color-coral)] bg-transparent hover:bg-[var(--color-coral)] hover:text-white",
+          "border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background",
+        outlinePrimary:
+          "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground",
         ghost:
-          "text-[var(--color-ink)] hover:bg-[var(--color-muted)]",
-        teal:
-          "bg-[var(--color-teal)] text-white hover:brightness-110 shadow-[var(--shadow-warm-sm)]",
+          "border-2 border-transparent text-foreground hover:bg-muted",
+        destructive:
+          "bg-destructive text-destructive-foreground border-2 border-destructive hover:brightness-110",
       },
       size: {
-        sm:  "h-8  px-3 text-xs",
-        md:  "h-10 px-4 text-sm",
-        lg:  "h-12 px-6 text-base",
-        xl:  "h-14 px-8 text-lg",
-        icon:"h-9  w-9  p-0",
+        sm:   "h-8  px-3  text-xs  rounded-[var(--radius-sm)]",
+        md:   "h-10 px-4  text-sm  rounded-[var(--radius-md)]",
+        lg:   "h-12 px-6  text-base rounded-[var(--radius-lg)]",
+        xl:   "h-14 px-8  text-lg  rounded-[var(--radius-lg)]",
+        icon: "h-9  w-9   p-0      rounded-[var(--radius-md)]",
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "default",
       size: "md",
     },
   }

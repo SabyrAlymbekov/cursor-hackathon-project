@@ -13,16 +13,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-col gap-1.5">
         {label && (
-          <label
-            htmlFor={inputId}
-            className="text-sm font-medium text-[var(--color-ink)]"
-          >
+          <label htmlFor={inputId} className="text-sm font-semibold text-foreground">
             {label}
           </label>
         )}
         <div className="relative">
           {icon && (
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-ink)] opacity-40">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
               {icon}
             </span>
           )}
@@ -31,20 +28,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             type={type}
             ref={ref}
             className={cn(
-              "w-full rounded-xl border-2 border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-ink)] placeholder:text-[var(--color-ink)] placeholder:opacity-40",
-              "transition-all duration-150",
-              "focus:border-[var(--color-coral)] focus:outline-none focus:ring-2 focus:ring-[var(--color-coral)] focus:ring-offset-1",
-              "disabled:opacity-50 disabled:cursor-not-allowed",
-              error && "border-red-400 focus:border-red-400 focus:ring-red-400",
+              "flex w-full rounded-[var(--radius-md)] border-2 border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground",
+              "transition-colors duration-150",
+              "focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              error && "border-destructive focus:border-destructive focus:ring-destructive",
               icon && "pl-10",
               className
             )}
             {...props}
           />
         </div>
-        {error && (
-          <p className="text-xs text-red-500">{error}</p>
-        )}
+        {error && <p className="text-xs text-destructive">{error}</p>}
       </div>
     );
   }

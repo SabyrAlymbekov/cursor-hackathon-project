@@ -3,72 +3,95 @@
 /* ── Fontshare ──────────────────────────────────────────────────────────── */
 @import url("https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@400,500,600&display=swap");
 
-/* ── Design tokens ──────────────────────────────────────────────────────── */
+/* ── Summer design tokens (shadcn HSL format) ───────────────────────────── */
+@layer base {
+  :root {
+    /* Backgrounds */
+    --background:           36 60% 97%;   /* warm cream */
+    --foreground:           224 41% 15%;  /* deep ink */
+
+    --card:                 0 0% 100%;
+    --card-foreground:      224 41% 15%;
+
+    --popover:              0 0% 100%;
+    --popover-foreground:   224 41% 15%;
+
+    /* Coral — primary CTA */
+    --primary:              5 95% 63%;
+    --primary-foreground:   0 0% 100%;
+
+    /* Amber — secondary / highlight */
+    --secondary:            36 100% 62%;
+    --secondary-foreground: 224 41% 15%;
+
+    /* Sandy muted */
+    --muted:                30 45% 92%;
+    --muted-foreground:     224 18% 48%;
+
+    /* Teal — accent / completed state */
+    --accent:               175 62% 45%;
+    --accent-foreground:    0 0% 100%;
+
+    --destructive:          0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border:               30 28% 83%;
+    --input:                30 28% 83%;
+    --ring:                 5 95% 63%;
+
+    --radius: 0.75rem;
+
+    --font-sans:    "General Sans", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Clash Display", ui-sans-serif, system-ui, sans-serif;
+    --font-mono:    ui-monospace, "Cascadia Code", monospace;
+  }
+}
+
+/* ── Tailwind v4: map vars → utility classes ────────────────────────────── */
 @theme {
-  /* Brand palette */
-  --color-coral:   #FF6B5B;
-  --color-amber:   #FFB347;
-  --color-peach:   #FFDAB9;
-  --color-teal:    #2EC4B6;
-  --color-ink:     #1E2A47;
-  --color-ink-light: #2E3E63;
-  --color-cream:   #FFF8F0;
-  --color-white:   #FFFFFF;
+  --color-background:           hsl(var(--background));
+  --color-foreground:           hsl(var(--foreground));
+  --color-card:                 hsl(var(--card));
+  --color-card-foreground:      hsl(var(--card-foreground));
+  --color-popover:              hsl(var(--popover));
+  --color-popover-foreground:   hsl(var(--popover-foreground));
+  --color-primary:              hsl(var(--primary));
+  --color-primary-foreground:   hsl(var(--primary-foreground));
+  --color-secondary:            hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted:                hsl(var(--muted));
+  --color-muted-foreground:     hsl(var(--muted-foreground));
+  --color-accent:               hsl(var(--accent));
+  --color-accent-foreground:    hsl(var(--accent-foreground));
+  --color-destructive:          hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border:               hsl(var(--border));
+  --color-input:                hsl(var(--input));
+  --color-ring:                 hsl(var(--ring));
 
-  /* Semantic */
-  --color-background: var(--color-cream);
-  --color-foreground: var(--color-ink);
-  --color-primary:    var(--color-coral);
-  --color-secondary:  var(--color-amber);
-  --color-accent:     var(--color-teal);
-  --color-muted:      #F5E6D3;
-  --color-border:     #E8C9A8;
+  --font-sans:    var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono:    var(--font-mono);
 
-  /* Typography */
-  --font-display: "Clash Display", ui-sans-serif, system-ui, sans-serif;
-  --font-body:    "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 12px);
 
-  /* Radii */
-  --radius-sm:  0.375rem;
-  --radius-md:  0.75rem;
-  --radius-lg:  1.25rem;
-  --radius-xl:  2rem;
+  /* Warm shadows (no more gray ones) */
+  --shadow-sm: 0 1px 3px 0 hsl(5 60% 50% / 0.12), 0 1px 2px -1px hsl(5 60% 50% / 0.10);
+  --shadow-md: 0 4px 12px -2px hsl(5 60% 50% / 0.14), 0 2px 4px -2px hsl(5 60% 50% / 0.10);
+  --shadow-lg: 0 8px 24px -4px hsl(224 41% 15% / 0.16), 0 4px 8px -4px hsl(224 41% 15% / 0.10);
 
-  /* Shadows — warm toned */
-  --shadow-warm-sm: 0 2px 8px 0 rgba(255, 107, 91, 0.15);
-  --shadow-warm-md: 0 4px 24px 0 rgba(255, 107, 91, 0.2);
-  --shadow-warm-lg: 0 8px 40px 0 rgba(30, 42, 71, 0.18);
-
-  /* Animations */
-  --animate-shimmer-slide: shimmer-slide 1s ease-in-out infinite alternate;
-  --animate-gradient:      gradient 8s linear infinite;
-  --animate-meteor:        meteor 5s linear infinite;
-  --animate-spin-slow:     spin 8s linear infinite;
-  --animate-fade-up:       fade-up 0.6s ease forwards;
+  /* Keyframes */
+  --animate-fade-up:   fade-up 0.5s ease forwards;
+  --animate-spin-slow: spin 8s linear infinite;
 }
 
 /* ── Keyframes ──────────────────────────────────────────────────────────── */
-@keyframes shimmer-slide {
-  from { background-position: 200% center; }
-  to   { background-position: -200% center; }
-}
-@keyframes gradient {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-@keyframes meteor {
-  0%   { transform: rotate(215deg) translateX(0); opacity: 1; }
-  70%  { opacity: 1; }
-  100% { transform: rotate(215deg) translateX(-500px); opacity: 0; }
-}
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes pulse-soft {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.6; }
 }
 
 /* ── Base ───────────────────────────────────────────────────────────────── */
@@ -77,39 +100,22 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans);
   min-height: 100dvh;
-  position: relative;
-}
-
-/* Subtle grain texture overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.5;
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
 }
 
-/* ── Utility classes ────────────────────────────────────────────────────── */
-.text-gradient-coral {
-  background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-amber) 50%, var(--color-peach) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.bg-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
 }

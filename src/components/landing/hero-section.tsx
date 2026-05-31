@@ -3,145 +3,180 @@
 import Link from "next/link";
 import { ArrowRight, Link2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { Particles } from "@/components/magicui/particles";
-import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   show:   { opacity: 1, y: 0 },
 };
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center">
-      {/* Warm gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-peach)] via-[var(--color-cream)] to-[var(--color-cream)]" />
+    <section className="relative min-h-[100dvh] overflow-hidden bg-background">
+      {/* Sun circle — decorative, not glow blob */}
+      <div
+        className="pointer-events-none absolute -right-24 -top-24 h-[480px] w-[480px] rounded-full"
+        style={{ background: "hsl(var(--secondary) / 0.22)" }}
+      />
+      {/* Small dot pattern strip */}
+      <div
+        className="pointer-events-none absolute left-0 top-0 h-full w-16 opacity-30"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, hsl(var(--primary) / 0.4) 1.5px, transparent 1.5px)",
+          backgroundSize: "16px 16px",
+        }}
+      />
 
-      {/* Decorative blobs */}
-      <div className="absolute -left-32 top-0 h-[500px] w-[500px] rounded-full bg-[var(--color-coral)] opacity-10 blur-3xl" />
-      <div className="absolute -right-32 bottom-0 h-[500px] w-[500px] rounded-full bg-[var(--color-amber)] opacity-10 blur-3xl" />
-      <div className="absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-[var(--color-teal)] opacity-5 blur-3xl" />
+      {/* Main content — two-column on large screens */}
+      <div className="mx-auto flex min-h-[100dvh] max-w-6xl flex-col items-center justify-center gap-12 px-6 py-20 lg:flex-row lg:items-center lg:gap-16">
 
-      {/* Particles */}
-      <Particles className="absolute inset-0" quantity={55} />
-
-      {/* Content */}
-      <motion.div
-        className="relative z-10 flex max-w-4xl flex-col items-center gap-6"
-        initial="hidden"
-        animate="show"
-        variants={{ show: { transition: { staggerChildren: 0.12 } } }}
-      >
-        {/* Badge */}
-        <motion.div variants={fadeUp}>
-          <span className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--color-amber)] bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[var(--color-ink)] shadow-[var(--shadow-warm-sm)] backdrop-blur-sm">
-            ☀️ Summer 2025 &nbsp;·&nbsp; Play with friends
-          </span>
-        </motion.div>
-
-        {/* Headline */}
-        <motion.h1
-          variants={fadeUp}
-          className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[0.95] tracking-tight text-[var(--color-ink)]"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          let it{" "}
-          <AnimatedGradientText className="text-[clamp(3rem,8vw,6rem)] font-bold leading-[0.95]">
-            bingo
-          </AnimatedGradientText>
-          <br />
-          <span className="text-[clamp(2rem,5vw,3.5rem)] font-medium text-[var(--color-ink)] opacity-60">
-            this summer.
-          </span>
-        </motion.h1>
-
-        {/* Sub-headline */}
-        <motion.p
-          variants={fadeUp}
-          className="max-w-xl text-[clamp(1rem,2.5vw,1.25rem)] text-[var(--color-ink)] opacity-70 leading-relaxed"
-        >
-          Turn your bucket list into a shared game. Drop a link in the group chat,
-          mark what you&apos;ve done, find people to join you — hit a line and celebrate.
-        </motion.p>
-
-        {/* CTAs */}
+        {/* Left: text */}
         <motion.div
-          variants={fadeUp}
-          className="mt-2 flex flex-col items-center gap-4 sm:flex-row"
+          className="flex max-w-xl flex-col gap-6"
+          initial="hidden"
+          animate="show"
+          variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }}
         >
-          <ShimmerButton className="h-14 px-8 text-base">
-            <Link href="/create" className="flex items-center gap-2">
-              Start a bingo <ArrowRight className="h-4 w-4" />
-            </Link>
-          </ShimmerButton>
+          {/* Season badge */}
+          <motion.div variants={fadeUp}>
+            <Badge variant="summer" className="text-xs">
+              ☀️ Summer 2025 &nbsp;·&nbsp; Play with friends
+            </Badge>
+          </motion.div>
 
-          <Link
-            href="/auth/login"
-            className="group flex items-center gap-2 rounded-xl border-2 border-[var(--color-ink)] px-8 py-3.5 text-base font-semibold text-[var(--color-ink)] transition-all hover:bg-[var(--color-ink)] hover:text-white"
-          >
-            <Link2 className="h-4 w-4" />
-            I have a link
-          </Link>
+          {/* Headline */}
+          <motion.div variants={fadeUp} className="flex flex-col gap-1">
+            <h1
+              className="text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[0.92] tracking-tight text-foreground"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              A bucket list
+              <br />
+              nobody finishes—
+            </h1>
+            {/* Brand in a punchy coral block */}
+            <div className="mt-3 inline-flex w-fit items-baseline gap-3">
+              <span
+                className="block rounded-lg bg-primary px-4 py-1 text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1] tracking-tight text-primary-foreground"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                letitbingo
+              </span>
+            </div>
+            <p
+              className="mt-2 text-[clamp(1.1rem,2.5vw,1.4rem)] font-medium text-muted-foreground"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              turned into a game.
+            </p>
+          </motion.div>
+
+          {/* Sub-copy */}
+          <motion.p variants={fadeUp} className="text-base leading-relaxed text-muted-foreground">
+            Turn your summer challenges into a shared bingo. Drop a link in the group
+            chat, mark what you&apos;ve done, find people to join you — hit a line and
+            celebrate.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
+            <Button size="lg" asChild>
+              <Link href="/create">
+                Start a bingo <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/auth/login">
+                <Link2 className="h-4 w-4" /> I have a link
+              </Link>
+            </Button>
+          </motion.div>
+
+          <motion.p variants={fadeUp} className="text-xs text-muted-foreground">
+            No app needed &nbsp;·&nbsp; Free forever
+          </motion.p>
         </motion.div>
 
-        {/* Social proof */}
-        <motion.p variants={fadeUp} className="text-sm text-[var(--color-ink)] opacity-40">
-          No app needed · Free forever
-        </motion.p>
-      </motion.div>
+        {/* Right: floating bingo card */}
+        <motion.div
+          className="flex-shrink-0"
+          initial={{ opacity: 0, y: 16, rotate: -2 }}
+          animate={{ opacity: 1, y: 0, rotate: 2 }}
+          transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
+        >
+          <MiniBindoPreview />
+        </motion.div>
+      </div>
 
-      {/* Floating bingo preview card */}
-      <motion.div
-        className="absolute bottom-8 right-8 hidden xl:block"
-        initial={{ opacity: 0, rotate: 6, scale: 0.9 }}
-        animate={{ opacity: 1, rotate: 3, scale: 1 }}
-        transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
-      >
-        <MiniBindoPreview />
-      </motion.div>
-
-      {/* Scroll hint */}
-      <motion.div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
-      >
-        <div className="flex h-8 w-5 items-start justify-center rounded-full border-2 border-[var(--color-ink)] border-opacity-30 p-1">
-          <div className="h-1.5 w-1 rounded-full bg-[var(--color-ink)] opacity-40" />
-        </div>
-      </motion.div>
+      {/* Bottom wave into next section */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+        <svg viewBox="0 0 1440 48" className="w-full" style={{ fill: "hsl(var(--foreground))" }}>
+          <path d="M0,32 C480,56 960,8 1440,32 L1440,48 L0,48 Z" />
+        </svg>
+      </div>
     </section>
   );
 }
 
-function MiniBindoPreview() {
-  const cells = [
-    "Swim at sunrise", "Try street food", "FREE ☀️", "Watch a meteor shower", "Learn to surf",
-    "Camp overnight", "Go on a hike", "Read on the beach", "Cook a BBQ", "Rent a bike",
-  ];
+const CELLS = [
+  { text: "Swim at sunrise",     done: false },
+  { text: "Try street food",     done: true  },
+  { text: "Camp overnight",      done: false },
+  { text: "Watch meteors",       done: false },
+  { text: "Learn to surf",       done: true  },
+  { text: "Go on a hike",        done: false },
+  { text: "Read on beach",       done: true  },
+  { text: "FREE ☀️",             done: true  },
+  { text: "Cook a BBQ",          done: false },
+  { text: "Rent a bike",         done: true  },
+  { text: "Watch the sunset",    done: false },
+  { text: "Go kayaking",         done: false },
+];
 
+function MiniBindoPreview() {
   return (
     <div
-      className="w-48 overflow-hidden rounded-2xl border-2 border-[var(--color-border)] bg-white/90 p-2 shadow-[var(--shadow-warm-lg)] backdrop-blur-sm"
+      className="w-64 overflow-hidden rounded-2xl border-2 border-border bg-card shadow-lg"
       style={{ fontFamily: "var(--font-display)" }}
     >
-      <div className="mb-2 rounded-lg bg-[var(--color-coral)] px-2 py-1 text-center text-[10px] font-bold text-white">
-        Adventure Summer ☀️
+      {/* Stamp header */}
+      <div className="bg-primary px-4 py-3 text-center">
+        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary-foreground opacity-70">
+          B · I · N · G · O
+        </p>
+        <p className="mt-0.5 text-sm font-bold text-primary-foreground">Adventure Summer ☀️</p>
       </div>
-      <div className="grid grid-cols-2 gap-1">
-        {cells.slice(0, 8).map((c, i) => (
+
+      {/* Grid */}
+      <div className="grid grid-cols-4 gap-1 p-2">
+        {CELLS.map((c, i) => (
           <div
             key={i}
-            className={`rounded-md px-1 py-1.5 text-center text-[8px] font-medium leading-tight ${
-              c === "FREE ☀️" || i === 1 || i === 5
-                ? "bg-[var(--color-teal)] text-white"
-                : "bg-[var(--color-muted)] text-[var(--color-ink)]"
+            className={`flex items-center justify-center rounded-md px-1 py-2 text-center text-[8px] font-semibold leading-tight ${
+              c.done
+                ? "bg-accent text-accent-foreground"
+                : "bg-muted text-muted-foreground"
             }`}
           >
-            {c}
+            {c.done && c.text !== "FREE ☀️" && (
+              <span className="mr-0.5 opacity-70">✓</span>
+            )}
+            {c.text}
           </div>
         ))}
+      </div>
+
+      {/* Progress bar */}
+      <div className="px-3 pb-3 pt-1">
+        <div className="mb-1 flex justify-between text-[9px] font-semibold text-muted-foreground">
+          <span>Progress</span>
+          <span className="text-accent">5 / 24</span>
+        </div>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+          <div className="h-full w-[21%] rounded-full bg-accent" />
+        </div>
       </div>
     </div>
   );

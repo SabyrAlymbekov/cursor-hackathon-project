@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Mail, Lock, User } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Input } from "@/components/ui/input";
-import { ShimmerButton } from "@/components/magicui/shimmer-button";
+import { Button } from "@/components/ui/button";
 
 const EMOJI_OPTIONS = ["🦁", "🐻", "🦊", "🐧", "🦋", "🐬", "🦄", "🐙", "🦜", "🐸", "🌻", "🍉"];
 
@@ -152,13 +152,14 @@ export function RegisterForm() {
       )}
 
       {/* Submit */}
-      <ShimmerButton
+      <Button
         type="submit"
+        size="lg"
         disabled={loading}
         className="mt-1 w-full"
       >
         {loading ? "Creating account…" : `Join as ${avatar} ${name || "…"}`}
-      </ShimmerButton>
+      </Button>
 
       {/* Login link */}
       <p className="text-center text-sm text-[var(--color-ink)] opacity-60">
